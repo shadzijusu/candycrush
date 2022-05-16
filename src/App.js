@@ -1,14 +1,24 @@
 import {useState} from 'react'
 import {useEffect} from 'react'
+import BlueCandy from './images/blue-candy.png'
+import GreenCandy from './images/green-candy.png'
+import OrangeCandy from './images/orange-candy.png'
+import PurpleCandy from './images/purple-candy.png'
+import RedCandy from  './images/red-candy.png'
+import YellowCandy from './images/yellow-candy.png'
+import blank from  './images/blue-candy.png'
+
+
 
 const width = 8
 const candyColors = [
-  'blue',
-  'green',
-  'orange',
-  'purple',
-  'red',
-  'yellow'
+  BlueCandy,
+  GreenCandy,
+  OrangeCandy,
+  PurpleCandy,
+  RedCandy,
+  YellowCandy,
+  blank
 ]
 
 
@@ -22,7 +32,7 @@ const  App = () => {
       const decidedColor = currentColorArangement[i]
       if(columnOfThree.every(square => currentColorArangement[square] === decidedColor))
       {
-        columnOfThree.forEach(square => currentColorArangement[square] = '')
+        columnOfThree.forEach(square => currentColorArangement[square] = blank)
       return true
       }
     }
@@ -34,7 +44,7 @@ const  App = () => {
       const decidedColor = currentColorArangement[i]
       if(columnOfFour.every(square => currentColorArangement[square] === decidedColor))
       {
-        columnOfFour.forEach(square => currentColorArangement[square] = '')
+        columnOfFour.forEach(square => currentColorArangement[square] = blank)
         return true
       }
     }
@@ -47,7 +57,7 @@ const  App = () => {
       if(notValid.includes(i)) continue
       if(rowOfThree.every(square => currentColorArangement[square] === decidedColor))
       {
-        rowOfThree.forEach(square => currentColorArangement[square] = '')
+        rowOfThree.forEach(square => currentColorArangement[square] = blank)
         return true 
      }
     }
@@ -60,7 +70,7 @@ const  App = () => {
       if(notValid.includes(i)) continue
       if(rowOfFour.every(square => currentColorArangement[square] === decidedColor))
       {
-        rowOfFour.forEach(square => currentColorArangement[square] = '')
+        rowOfFour.forEach(square => currentColorArangement[square] = blank)
         return true
       }
     }
@@ -69,13 +79,13 @@ const  App = () => {
     for(let i = 0; i <= 55 ; i++) {
       const firstRow = [0,1,2,3,4,5,6,7]
       const isFirstRow = firstRow.includes(i)
-      if(isFirstRow && currentColorArangement[i] === '') {
+      if(isFirstRow && currentColorArangement[i] === blank) {
         let randomNumber = Math.floor(Math.random() * candyColors.length)
         currentColorArangement[i] = candyColors[randomNumber]
       }
-      if(currentColorArangement[i + width] === '') {
+      if(currentColorArangement[i + width] === blank) {
         currentColorArangement[i + width] = currentColorArangement[i]
-        currentColorArangement[i] = ''
+        currentColorArangement[i] = blank
       }
     }
   }
@@ -88,8 +98,8 @@ const  App = () => {
   const dragEnd = (e) => {
     const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('data-id'))
     const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('data-id'))
-    currentColorArangement[squareBeingReplacedId] = squareBeingDragged.style.backgroundColor
-    currentColorArangement[squareBeingDraggedId] = squareBeingReplaced.style.backgroundColor
+    currentColorArangement[squareBeingReplacedId] = squareBeingDragged.getAttribute('src')
+    currentColorArangement[squareBeingDraggedId] = squareBeingReplaced.getAttribute('src')
 
     const validMoves = [
       squareBeingDraggedId - 1,
@@ -108,8 +118,8 @@ const  App = () => {
       setSquareBeingReplaced(null)
     }
     else {
-      currentColorArangement[squareBeingReplacedId] = squareBeingReplaced.style.backgroundColor
-      currentColorArangement[squareBeingDraggedId] = squareBeingDragged.style.backgroundColor
+      currentColorArangement[squareBeingReplacedId] = squareBeingReplaced.getAttribute('src')
+      currentColorArangement[squareBeingDraggedId] = squareBeingDragged.getAttribute('src')
       setCurrentColorArrangement([...currentColorArangement])
     }
   }
@@ -141,8 +151,9 @@ const  App = () => {
     <div className="app">
       <div className="game">
         {currentColorArangement.map((candyColor, index) => (
-          <img key={index} style={{backgroundColor: candyColor}} 
-           alt={candyColor}
+          <img key={index}  
+          src={candyColor}
+          alt={candyColor}
            data-id={index}
            draggable={true}
            onDragStart={dragStart}
