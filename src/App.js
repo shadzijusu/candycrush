@@ -98,7 +98,20 @@ const  App = () => {
       squareBeingDraggedId + width
     ]
     const validMove = validMoves.includes(squareBeingReplacedId)
+    const isAColumnOfFour = checkForColumnOfFour()
+    const isARowOFFour = checkForRowOfFour()
+    const isAColumnOfThree = checkForColumnOfThree()
+    const isARowOFThree = checkForRowOfThree()
 
+    if(squareBeingReplacedId && validMove && (isARowOFThree || isARowOFFour || isAColumnOfFour || isAColumnOfThree)) {
+      setSquareBeingDragged(null)
+      setSquareBeingReplaced(null)
+    }
+    else {
+      currentColorArangement[squareBeingReplacedId] = squareBeingReplaced.style.backgroundColor
+      currentColorArangement[squareBeingDraggedId] = squareBeingDragged.style.backgroundColor
+      setCurrentColorArrangement([...currentColorArangement])
+    }
   }
   const createBoard = () => {
     const randomColorArrangement = []
