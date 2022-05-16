@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useEffect} from 'react'
+
 import BlueCandy from './images/blue-candy.png'
 import GreenCandy from './images/green-candy.png'
 import OrangeCandy from './images/orange-candy.png'
@@ -8,7 +9,6 @@ import RedCandy from  './images/red-candy.png'
 import YellowCandy from './images/yellow-candy.png'
 import blank from  './images/blue-candy.png'
 import ScoreBoard from './components/ScoreBoard'
-
 
 const width = 8
 const candyColors = [
@@ -160,7 +160,10 @@ const  App = () => {
   }, [checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArangement])
   
   return (
-    <div className="app">
+    <div>
+   
+   <ScoreBoard score={scoreDisplay}></ScoreBoard>
+
       <div className="game">
         {currentColorArangement.map((candyColor, index) => (
           <img key={index}  
@@ -178,8 +181,9 @@ const  App = () => {
           </img>
         ))}
       </div>
-      <ScoreBoard score={scoreDisplay}></ScoreBoard>
+  
     </div>
+
   )
 }
 

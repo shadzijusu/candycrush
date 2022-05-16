@@ -1,8 +1,13 @@
+* {
+  background-color: #2aaae6;
+}
+
 .app {
   display: flex;
   padding: 30px;
 }
 .game {
+  margin: auto;
   width: 560px;
   height: 560px;
   display: flex;
